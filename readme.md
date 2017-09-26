@@ -1,5 +1,6 @@
 # `torch-two-sample`
-![documentation status](https://readthedocs.org/projects/torch-two-sample/badge/?version=latest)
+[![Documentation Status](https://readthedocs.org/projects/torch-two-sample/badge/?version=latest)](https://torch-two-sample.readthedocs.io/en/latest/)
+[![Build Status](https://travis-ci.org/josipd/torch-two-sample.svg?branch=master)](https://travis-ci.org/josipd/torch-two-sample)
 
 A PyTorch library for differentiable two-sample tests
 

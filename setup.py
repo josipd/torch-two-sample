@@ -1,4 +1,5 @@
 from setuptools import setup, Extension
+import numpy
 
 
 setup(
@@ -23,7 +24,8 @@ setup(
     packages=['torch_two_sample'],
     ext_modules=[
         Extension('torch_two_sample.permutation_test',
-                  sources=['torch_two_sample/permutation_test.pyx']),
+                  sources=['torch_two_sample/permutation_test.pyx'],
+                  include_dirs=[numpy.get_include()]),
     ],
     license='license.txt',
 )
