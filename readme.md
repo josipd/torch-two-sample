@@ -1,4 +1,5 @@
 # `torch-two-sample`
+![documentation status](https://readthedocs.org/projects/torch-two-sample/badge/?version=latest)
 
 A PyTorch library for differentiable two-sample tests
 
