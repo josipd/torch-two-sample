@@ -1,0 +1,14 @@
+__pycache__
+*.pyc
+.*swp
+torch_two_sample/permutation_test.c
+torch_two_sample/permutation_test.so
+.cache
+.eggs
+build
+*.egg-info
+*.so
+*.swp
+*.swo
+dist
+docs/_build
