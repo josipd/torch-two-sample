@@ -3,9 +3,12 @@ dependencies:
   - numpy=1.14.1
   - scipy=1.0.0
   - matplotlib=2.1.1
+  - pyzmq=17.0.0
   - jupyter
   - cython
   - pytorch=0.3.1
+  - torchvision=0.2.0
+  - tqdm
   - shogun=6.0.0
   - sphinxcontrib-bibtex
   - sphinx_rtd_theme
