@@ -244,7 +244,7 @@ class SmoothKNNStatistic(object):
         margs_ = None
         for alpha in alphas:
             if self.k == 1:
-                margs_a = softmax(- alpha * diffs)
+                margs_a = softmax(-alpha * diffs, dim=1)
             else:
                 margs_a = inference_cardinality(
                     - alpha * diffs.cpu(), count_potential)
