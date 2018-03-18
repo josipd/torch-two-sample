@@ -139,8 +139,9 @@ def inference_cardinality(node_potentials, cardinality_potential):
 
     bb = bmsgs[:, 2:, :]
     ff = fmsgs[:, :-2, :]
-    b0 = logsumexp(bb + ff, 2)
-    b1 = logsumexp(bb[:, :, :-1] + ff[:, :, 1:], 2) + node_potentials[:, :-1]
+    b0 = logsumexp(bb + ff, 2).view(batch_size, dim_node-1)
+    b1 = logsumexp(bb[:, :, :-1] + ff[:, :, 1:], 2).view(
+        batch_size, dim_node - 1) + node_potentials[:, :-1]
 
     marginals = create_var(0, batch_size, dim_node)
     marginals[:, :-1] = torch.sigmoid(b1 - b0)
