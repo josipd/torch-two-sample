@@ -1,0 +1,16 @@
+dependencies:
+  - python=3.5
+  - numpy=1.14
+  - scipy=1.0
+  - matplotlib=2.2
+  - pyzmq=17.0
+  - jupyter=1.0
+  - cython=0.28
+  - pytorch=0.3  # from channel pytorch
+  - torchvision=0.2  # from channel pytorch
+  - shogun=6.0  # from channel conda-forge
+  - tqdm
+  - pylint
+  - sphinxcontrib-bibtex
+  - sphinx_rtd_theme
+  - mock

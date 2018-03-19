@@ -14,7 +14,7 @@ def test_softmax():
             unaries = Variable(torch.randn(batch_size, 15))
             count_potentials = Variable(NINF * torch.ones(batch_size, k + 1))
             count_potentials[:, 1] = 0
-            output_softmax = softmax(unaries)
+            output_softmax = softmax(unaries, dim=1)
             output_cardinf = inference_cardinality(unaries, count_potentials)
             assert np.allclose(output_softmax.cpu().data.numpy(),
                                output_cardinf.cpu().data.numpy())

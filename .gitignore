@@ -12,3 +12,4 @@ build
 *.swo
 dist
 docs/_build
+.pytest_cache/

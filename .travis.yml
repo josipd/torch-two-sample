@@ -19,16 +19,14 @@ install:
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
+  # Add channels necessary for the dependencies
+  - conda config --add channels pytorch
+  - conda config --add channels conda-forge
   # Useful for debugging any issues with conda
   - conda info -a
 
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
+  - conda env create -n test-environment -f .environment python=$TRAVIS_PYTHON_VERSION
   - source activate test-environment
-  - conda install pytorch -c soumith
-  - conda install -c conda-forge shogun 
-  - conda install numpy
-  - conda install cython
-  - conda install scipy
   - python setup.py install
 
 script:
