@@ -110,7 +110,7 @@ class SmoothFRStatistic(object):
             else:
                 margs = margs + margs_a
 
-        margs /= len(alphas)
+        margs = margs / len(alphas)
         idx_within = Variable(self.idx_within, requires_grad=False)
         n_1, n_2, n = self.n_1, self.n_2, self.n_1 + self.n_2
         m = margs.sum()

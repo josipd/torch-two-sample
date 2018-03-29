@@ -107,7 +107,7 @@ class TreeMarginals(object):
         :class:`torch:torch.autograd.Variable`
             The marginal probabilities in a vector of size
             ``n * (n - 1) // 2``."""
-        d -= d.max()  # So that we don't have to compute large exponentials.
+        d = d - d.max()  # So that we don't have to compute large exponentials.
 
         # Construct the Laplacian.
         L_off = self.to_mat(torch.exp(d))
