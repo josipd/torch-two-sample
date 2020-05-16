@@ -12,7 +12,9 @@ __all__ = ['FRStatistic', 'KNNStatistic']
 
 class MSTFn(Function):
     """Compute the minimum spanning tree given a matrix of pairwise weights."""
-    def forward(self, weights):
+
+    @staticmethod
+    def forward(ctx, weights):
         """Compute the MST given the edge weights.
 
         The behaviour is the same as that of ``minimum_spanning_tree` in
@@ -43,21 +45,16 @@ class MSTFn(Function):
 
 
 class KSmallest(Function):
-    """Return an indicator vector holing the smallest k elements in each row.
+    """Return an indicator vector holing the smallest k elements in each row."""
 
-    Arguments
-    ---------
-    k: int
-        How many elements to keep per row."""
-    def __init__(self, k):
-        super(KSmallest, self).__init__()
-        self.k = k
-
-    def forward(self, matrix):
+    @staticmethod
+    def forward(ctx, k, matrix):
         """Compute the positions holding the largest k elements in each row.
 
         Arguments
         ---------
+        k: int
+            How many elements to keep per row.
         matrix: :class:`torch:torch.Tensor`
             Tensor of size (n, m)
 
@@ -66,12 +63,12 @@ class KSmallest(Function):
         torch.Tensor of size (n, m)
            The positions that correspond to the k largest elements are set to
            one, the rest are set to zero."""
-        self.mark_non_differentiable(matrix)
+        ctx.mark_non_differentiable(matrix)
         matrix = matrix.numpy()
         indices = np.argsort(matrix, axis=1)
         mins = np.zeros_like(matrix)
         rows = np.arange(matrix.shape[0]).reshape(-1, 1)
-        mins[rows, indices[:, :self.k]] = 1
+        mins[rows, indices[:, :k]] = 1
         return torch.Tensor(mins)
 
 
@@ -114,7 +111,7 @@ class FRStatistic(object):
         assert n_1 == self.n_1 and sample_2.size(0) == self.n_2
         sample_12 = torch.cat((sample_1, sample_2), 0)
         diffs = pdist(sample_12, sample_12, norm=norm)
-        mst_matrix = MSTFn()(diffs)
+        mst_matrix = MSTFn.apply(diffs)
 
         statistic = mst_matrix[:n_1, :n_1].sum() + mst_matrix[n_1:, n_1:].sum()
 
@@ -194,7 +191,7 @@ class KNNStatistic(object):
 
         for i in range(n):
             diffs[i, i] = float('inf')  # We don't want the diagonal selected.
-        smallest = KSmallest(self.k)(diffs.cpu())
+        smallest = KSmallest.apply(self.k, diffs.cpu())
         statistic = smallest[:n_1, :n_1].sum() + smallest[n_1:, n_1:].sum()
 
         if ret_matrix:
