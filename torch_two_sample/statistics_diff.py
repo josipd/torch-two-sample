@@ -352,8 +352,8 @@ class MMDStatistic:
             The first sample, of size ``(n_1, d)``.
         sample_2: variable of shape (n_2, d)
             The second sample, of size ``(n_2, d)``.
-        alphas : list of :class:`float`
-            The kernel parameters.
+        alphas : list of :class:`float` or str 'median'
+            The kernel parameters. If set 'median', then use median heuristic for kernel bandwidth.
         ret_matrix: bool
             If set, the call with also return a second variable.
 
@@ -368,6 +368,10 @@ class MMDStatistic:
             Returned only if ``ret_matrix`` was set to true."""
         sample_12 = torch.cat((sample_1, sample_2), 0)
         distances = pdist(sample_12, sample_12, norm=2)
+        
+        if alphas == 'median':
+            alphas = float(torch.median(distances)) ** 2
+            alphas = [ 1 / alphas ]
 
         kernels = None
         for alpha in alphas:
