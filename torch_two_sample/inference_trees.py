@@ -118,7 +118,7 @@ class TreeMarginals(object):
 
         A = Variable(self.A, requires_grad=False)
         P = (1. / torch.diag(L)).view(1, -1)  # The diagonal pre-conditioner.
-        Z, _ = torch.gesv(A, L * P.expand_as(L))
+        Z, _ = torch.solve(A, L * P.expand_as(L))
         Z = Z * P.t().expand_as(Z)
         # relu for numerical stability, the inside term should never be zero.
         return relu(torch.sum(Z * A, 0)) * torch.exp(d)
