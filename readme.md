@@ -15,7 +15,7 @@ This package implements a total of six two sample tests:
   * The maximum mean discrepancy (MMD) test *[GBR+12]*.
   * The energy test *[SzekelyR13]*.
 
-Please refer to the [documentation](https://torch_two_sample.readthedocs.io)
+Please refer to the [documentation](https://torch-two-sample.readthedocs.io/en/latest/)
 for more information about the project.
 You can also have a look at the following [notebook](notebooks/mnist.ipynb)
 that showcases how to use the code to train a generative model on MNIST.
